@@ -20,5 +20,8 @@ git checkout tags/v0.1 -b stable
 ```
 # Usage
 
+
+export PYTHONPATH=$PYTHONPATH:$HOME/git/toppra-path-following
+
 # Got questions?
 
