@@ -18,10 +18,16 @@ following command
 ``` shell
 git checkout tags/v0.1 -b stable
 ```
+
+Other than that, Jupyter notebook will be needed to view the notebook.
+
 # Usage
 
+Source the setup script which modify environment variable
 
-export PYTHONPATH=$PYTHONPATH:$HOME/git/toppra-path-following
+``` shell
+./path_following_setup.sh
+```
 
 # Got questions?
 
