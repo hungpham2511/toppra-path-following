@@ -12,23 +12,24 @@ import openravepy as orpy
 import toppra as ta
 import matplotlib.pyplot as plt
 import following_lib as fo
+import os
 from rave.Rave import inv_dyn
 
 # Setup Logging
 import logging
 import coloredlogs
 logger = logging.getLogger('trajectory')
-logger.setLevel(logging.DEBUG)
 fh = logging.FileHandler('traj.log', mode='a')
 logger.addHandler(fh)
 
 # Setup logging for toppra
-coloredlogs.install(level='DEBUG')
+coloredlogs.install(level='INFO')
 np.set_printoptions(5)
 
 # Load OpenRAVE environment
 env = orpy.Environment()
-env.Load('/home/hung/git/robotic-CRI/rave/denso_vs060.dae')
+env.Load(os.path.join(os.environ["TOPPRA_FOLLOWING_HOME"],
+                      'models/denso_vs060.dae'))
 robot = env.GetRobots()[0]
 
 # Geometric path
@@ -188,7 +189,7 @@ ax.plot((0, 1), (0, 0), '--', lw=0.5, c='gray')
 ax.set_xlim(-0.025, 1.025)
 # ax.set_yticks(np.arange(0, 0.021, 0.002))
 ax.legend()
-plt.savefig('/home/hung/git/hung/Papers/2017-TOPP-following/figures/compare_tracking_performance.pdf')
+plt.savefig('compare_tracking_performance.pdf')
 plt.show()
 
 ###############################################################################
@@ -212,7 +213,7 @@ ax.plot(OSG_res['traj_s'], OSG_res['traj_sd'] ** 2, c='C2', label='Parameterizat
 ax.set_xlim(-0.025, 0.6)
 ax.set_ylim(-0.25, 3.2)
 ax.legend()
-plt.savefig('/home/hung/git/hung/Papers/2017-TOPP-following/figures/actual_sd_traj.pdf')
+plt.savefig('actual_sd_traj.pdf')
 plt.show()
 
 import IPython
