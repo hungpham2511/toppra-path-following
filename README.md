@@ -7,6 +7,17 @@ did not make to the paper, or were made after that.
 
 # Installation
 
+This repository has two hard prequesites:
+- toppra: 
+- OpenRAVE: 
+
+Installation instructions for both can be found [here](github.com/hungpham2511/toppra).
+
+*Note that* after cloning toppra, v0.1 should be used. Use the
+following command
+``` shell
+git checkout tags/v0.1 -b stable
+```
 # Usage
 
 # Got questions?
