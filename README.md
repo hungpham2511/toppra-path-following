@@ -1,9 +1,11 @@
 # Introduction
 This repository contains code written to explore path tracking
-technique for motion control of robotic manipulators. All experiments
-which were presented in [ICRA-18](https://arxiv.org/abs/1709.05101)
-can be found in this repository. There are also additional experiments
-that did not make to the paper, or were made after that.
+technique for motion control of robotic manipulators. 
+
+All experiments which were presented in [this
+paper](https://arxiv.org/abs/1709.05101) can be found in this
+repository. There are also additional experiments that did not make to
+the paper, or were made after that.
 
 # Installation
 This repository has two hard prequesites, which are
@@ -25,13 +27,7 @@ pip install . -e --user
 ```
 
 # Usage
-First, source the following setup script.
-
-``` shell
-cd toppra/ && source path_following_setup.sh
-```
-
-The experiments presented in the paper can be ran using the following command
+The experiments can be ran using the following command
 ``` shell
 following.icra18 tracking_exps
 # For more details, do
