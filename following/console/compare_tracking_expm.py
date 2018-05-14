@@ -12,15 +12,15 @@ import openravepy as orpy
 import toppra as ta
 import matplotlib.pyplot as plt
 import following as fo
-import os, time
+import os, time, logging
 
 
-def main(env=None, quite=True):
+def main(env=None, verbose=True):
     # Setup Logging
-    if quite:
-        ta.setup_logging("WARN")
+    if verbose:
+        logging.basicConfig(level="DEBUG")
     else:
-        ta.setup_logging("DEBUG")
+        logging.basicConfig(level="WARN")
     # Setup logging for toppra
     np.set_printoptions(5)
 
@@ -30,8 +30,9 @@ def main(env=None, quite=True):
         env = orpy.Environment()
     else:
         env.Reset()
-    env.Load(os.path.join(os.environ["TOPPRA_FOLLOWING_HOME"],
-                          'models/denso_vs060.dae'))
+    fo.try_load_denso(env)
+    # env.Load(os.path.join(os.environ["TOPPRA_FOLLOWING_HOME"],
+                          # 'models/denso_vs060.dae'))
     env.SetViewer('qtosg')
     robot = env.GetRobots()[0]
     newrobot = orpy.RaveCreateRobot(env, robot.GetXMLId())

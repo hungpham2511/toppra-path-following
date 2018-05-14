@@ -4,14 +4,16 @@ import toppra as ta
 import matplotlib.pyplot as plt
 import os, argparse
 import logging
+import following
 logger = logging.getLogger(__name__)
 
 
 def main(env=None, verbose=False, savefig=False):
+    # Setup Logging
     if verbose:
-        ta.setup_logging("DEBUG")
+        logging.basicConfig(level="DEBUG")
     else:
-        ta.setup_logging("INFO")
+        logging.basicConfig(level="WARN")
 
     # Setup the robot, the geometric path and the torque bounds
     print("Loading the environment")
@@ -19,7 +21,7 @@ def main(env=None, verbose=False, savefig=False):
         env = orpy.Environment()
     else:
         env.Reset()
-    env.Load(os.path.join(os.environ["TOPPRA_FOLLOWING_HOME"], 'models/denso_vs060.dae'))
+    following.try_load_denso(env)
     robot = env.GetRobots()[0]
     np.random.seed(11)
     waypoints = np.random.randn(5, 6) * 0.4

@@ -11,6 +11,16 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+def try_load_denso(env):
+    if not env.Load("denso.dae"):
+        logger.info("Denso model not found. Downloading...")
+        import urllib
+        urllib.urlretrieve("https://raw.githubusercontent.com/start-jsk/denso/indigo-devel/vs060/model/denso-vs060.mujin.dae", "denso.dae")
+        logger.info("Download finished. Reloading.")
+        res = env.Load("denso.dae")
+        assert res
+
+
 class ExperimentBase(object):
     """Base class for the experiments done in my ICRA 2018 paper on path tracking.
 

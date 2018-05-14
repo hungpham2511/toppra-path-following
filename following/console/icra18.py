@@ -18,6 +18,7 @@ def main():
     # controllable sets
     parser_tracking = subparsers.add_parser('tracking_exps')
     parser_tracking.set_defaults(which="tracking_exps")
+    parser_tracking.add_argument('-v', action='store_true', dest='verbose', help='On for verbose')
     parser_sim = subparsers.add_parser(
         'simulate',
         description="Run simulation of the controllers on some different scenarios.")
@@ -25,7 +26,7 @@ def main():
     args = parser.parse_args()
 
     if args.which == "tracking_exps":
-        tracking_main()
+        tracking_main(verbose=args.verbose)
     if args.which == "robust_sets":
         robust_main(verbose=args.verbose, savefig=args.savefig)
     
