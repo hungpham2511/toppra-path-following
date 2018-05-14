@@ -69,14 +69,10 @@ def main():
     lamb = 30
 
     # Define experiments
-    OSG_exp = fo.ExperimentOSG(robot, path, Ks, ss,
-                               tau_min, tau_max, lamb)
-    OS_exp = fo.ExperimentOS(robot, path, us, xs, ss,
-                             tau_min, tau_max, lamb)
-    TT_exp = fo.ExperimentTT(robot, path, qs, qds, qdds,
-                             tau_min, tau_max, lamb)
-    TT_notrb_exp = fo.ExperimentTT(robot, path, qs, qds, qdds,
-                                   10 * tau_min, 10 * tau_max, lamb)
+    OSG_exp = fo.ExperimentOSG(robot, path, Ks, ss, tau_min, tau_max, lamb)
+    OS_exp = fo.ExperimentOS(robot, path, us, xs, ss, tau_min, tau_max, lamb)
+    TT_exp = fo.ExperimentTT(robot, path, qs, qds, qdds, tau_min, tau_max, lamb)
+    TT_notrb_exp = fo.ExperimentTT(robot, path, qs, qds, qdds, 10 * tau_min, 10 * tau_max, lamb)
     experiments = [OSG_exp, OS_exp, TT_exp]
 
     # Setup
