@@ -436,6 +436,21 @@ class PathTrackingSimulation(object):
 class RobustPathConstraint(object):
     """Discretized robust constraint on a path.
 
+    A robust path contraint has the following form
+
+    ..math::
+        (a_i + \Delta a_i) u + (b_i + \Delta b_i) x + (c_i + \Delta c_i) <= 0
+
+    where (\Delta a_i, \Delta b_i, \Delta c_i) are unknown and bounded
+    perturbations with the following representation
+    
+    ..math::
+        [\Delta a_ij, \Delta b_ij, \Delta c_ij]^\top = w_{ij} \mathbf P_{ij} u, \|u\|_2 \leq 1.
+    
+
+    A method to handle path constraints of this kind is 
+    
+
     Parameters
     ----------
     vs : ndarray, shape (N+1, m, 3)
@@ -448,6 +463,7 @@ class RobustPathConstraint(object):
     Returns
     -------
     out : RobustPathConstraint
+
     """
     def __init__(self, vs, Ps, ss):
         self.ss = ss
