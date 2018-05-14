@@ -99,6 +99,9 @@ def main():
     OSG_res = OSG_exp.run()
     OS_res = OS_exp.run()
 
+    ###############################################################################
+    #                    Fig 0:                                                   #
+    ###############################################################################
     fig, axs = plt.subplots(2, 1)
     axs[0].plot(TT_res['traj_e'][:, :6], c='blue')
     axs[0].plot(OSG_res['traj_e'][:, :6], c='red')
@@ -121,19 +124,14 @@ def main():
     plt.rcParams['ytick.labelsize'] = 6
     plt.rcParams['text.usetex'] = True
     f, ax = plt.subplots(figsize=[3.2, 1.8])
-    ax.plot(ss_ref,
-            np.linalg.norm(TT_res['traj_e'][:, :6], axis=1), '-',
+    ax.plot(ss_ref, np.linalg.norm(TT_res['traj_e'][:, :6], axis=1), '-',
             label='TT', c='C1')
-    ax.plot(OS_res['traj_s'],
-            np.linalg.norm(OS_res['traj_e'][:, :6], axis=1), '-',
+    ax.plot(OS_res['traj_s'], np.linalg.norm(OS_res['traj_e'][:, :6], axis=1), '-',
             label='OS', c='C4')
-    ax.plot(OSG_res['traj_s'],
-            np.linalg.norm(OSG_res['traj_e'][:, :6], axis=1),
+    ax.plot(OSG_res['traj_s'], np.linalg.norm(OSG_res['traj_e'][:, :6], axis=1),
             label='TOPT', c='C2')
     ax.plot((0, 1), (0, 0), '--', lw=0.5, c='gray')
-    # ax.set_ylim(-0.0015, 0.02)
     ax.set_xlim(-0.025, 1.025)
-    # ax.set_yticks(np.arange(0, 0.021, 0.002))
     ax.legend()
     plt.savefig('compare_tracking_performance.pdf')
     plt.show()
