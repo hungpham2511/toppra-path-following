@@ -20,12 +20,20 @@ class ExperimentBase(object):
     dt: float. Sample time.
 
     """
-    def __init__(self, robot, path, dt=1e-3):
+    def __init__(self, robot, path, dt=1e-3, cloned_robot=None):
         self.robot = robot
+        self.cloned_robot = cloned_robot
         self.path = path
         self.sys = PathTrackingSimulation(robot)
         self.dof = self.sys.dof
         self.dt = dt
+
+    def set_robot_joint(self, q):
+        self.robot.SetActiveDOFValues(q)
+
+    def set_reference_robot_joint(self, q):
+        if self.cloned_robot is not None:
+            self.cloned_robot.SetActiveDOFValues(q)
 
     def set_noise_level(self, x):
         """Scalar to multiply with unit noise function.
@@ -107,6 +115,8 @@ class ExperimentBase(object):
             traj_qd.append(self.sys._qd)
             traj_tau.append(tau)
             traj_sdd.append(sdd)
+            self.set_robot_joint(self.sys._q)
+            self.set_reference_robot_joint(self.path.cspl(self.sys._s))
 
         return {'traj_t': np.array(traj_t),
                 'traj_e': np.array(traj_e),
@@ -166,8 +176,8 @@ class ExperimentOS(ExperimentBase):
     """Experiment for the OS controller.
 
     """
-    def __init__(self, robot, path, us, xs, ss, tau_min, tau_max, lamb):
-        super(ExperimentOS, self).__init__(robot, path)
+    def __init__(self, robot, path, us, xs, ss, tau_min, tau_max, lamb, cloned_robot=None):
+        super(ExperimentOS, self).__init__(robot, path, cloned_robot=cloned_robot)
         self.xs = xs
         self.us = us
         self.tau_min = tau_min
@@ -220,8 +230,8 @@ class ExperimentOSG(ExperimentBase):
         
 
     """
-    def __init__(self, robot, path, Ks, ss, tau_min, tau_max, lamb):
-        super(ExperimentOSG, self).__init__(robot, path)
+    def __init__(self, robot, path, Ks, ss, tau_min, tau_max, lamb, cloned_robot=None):
+        super(ExperimentOSG, self).__init__(robot, path, cloned_robot=cloned_robot)
         self.Ks = Ks
         self.tau_min = tau_min
         self.tau_max = tau_max
@@ -270,8 +280,8 @@ class ExperimentOSG(ExperimentBase):
 class ExperimentTT(ExperimentBase):
     """ Experiment for the TT controller.
     """
-    def __init__(self, robot, path, qs, qds, qdds, tau_min, tau_max, lamb):
-        super(ExperimentTT, self).__init__(robot, path)
+    def __init__(self, robot, path, qs, qds, qdds, tau_min, tau_max, lamb, cloned_robot=None):
+        super(ExperimentTT, self).__init__(robot, path, cloned_robot=cloned_robot)
         self.qs = qs
         self.qds = qds
         self.qdds = qdds
@@ -336,6 +346,8 @@ class ExperimentTT(ExperimentBase):
             traj_qd.append(self.sys._qd)
             traj_tau.append(tau)
             traj_sdd.append(sdd)
+            self.set_robot_joint(self.sys._q)
+            self.set_reference_robot_joint(self.qs[i])
 
         return {'traj_t': np.array(traj_t),
                 'traj_e': np.array(traj_e),
