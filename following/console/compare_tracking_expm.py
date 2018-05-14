@@ -11,7 +11,7 @@ import numpy as np
 import openravepy as orpy
 import toppra as ta
 import matplotlib.pyplot as plt
-import following_lib as fo
+import following as fo
 import os
 from rave.Rave import inv_dyn
 
