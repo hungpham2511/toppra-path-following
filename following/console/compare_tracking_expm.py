@@ -31,6 +31,7 @@ def main():
     env = orpy.Environment()
     env.Load(os.path.join(os.environ["TOPPRA_FOLLOWING_HOME"],
                           'models/denso_vs060.dae'))
+    env.SetViewer('qtosg')
     robot = env.GetRobots()[0]
 
     # Geometric path
