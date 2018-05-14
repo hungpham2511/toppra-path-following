@@ -7,21 +7,18 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def main():
-    parser = argparse.ArgumentParser(description='A simple example showing the controllable sets'
-                                                 'in different setting.')
-    parser.add_argument('-v', action='store_true', dest='verbose', help='On for verbose')
-    parser.add_argument('-s', "--savefig", action='store_true', help='If true save the figure.',
-                        default=False)
-    args = parser.parse_args()
-    if args.verbose:
+def main(env=None, verbose=False, savefig=False):
+    if verbose:
         ta.setup_logging("DEBUG")
     else:
         ta.setup_logging("INFO")
 
     # Setup the robot, the geometric path and the torque bounds
     print("Loading the environment")
-    env = orpy.Environment()
+    if env is None:
+        env = orpy.Environment()
+    else:
+        env.Reset()
     env.Load(os.path.join(os.environ["TOPPRA_FOLLOWING_HOME"], 'models/denso_vs060.dae'))
     robot = env.GetRobots()[0]
     np.random.seed(11)
@@ -53,7 +50,7 @@ def main():
     plt.legend()
     plt.title("Controllable set for different levels of perturbations.")
     plt.tight_layout()
-    if args.savefig:
+    if savefig:
         plt.savefig("icra18-compare-robust-controllable-sets.pdf")
     plt.show()
 

@@ -7,8 +7,7 @@ setup(
     ],
     entry_points = {
         "console_scripts": [
-            'following.icra18.robustsets=following.console.compare_robust_controllable_sets:main',
-            'following.icra18.tracking=following.console.compare_tracking_expm:main'
+            'following.icra18=following.console.icra18:main',
         ]
     }
 )

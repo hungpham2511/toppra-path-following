@@ -2,9 +2,9 @@ import numpy as np
 import cvxpy as cvx
 import ecos
 import toppra as ta
-from rave.Rave import fw_dyn, inv_dyn
+from .rave import fw_dyn, inv_dyn
 from scipy.integrate import ode
-from scipy.sparse import lil_matrix, csc_matrix
+from scipy.sparse import csc_matrix
 import quadprog
 import coloredlogs
 import logging

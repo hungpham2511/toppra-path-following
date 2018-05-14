@@ -13,7 +13,6 @@ import toppra as ta
 import matplotlib.pyplot as plt
 import following as fo
 import os
-from rave.Rave import inv_dyn
 
 
 def main():
